@@ -12,7 +12,6 @@
         </div>
     @endif
 
-
     <form action="{{ route('admin.posts.update', $post->id) }}" method="post">
         @csrf
         @method('PUT')
@@ -35,9 +34,23 @@
         </div>
 
         <div class="mb-3">
-            <label for="text" class="form-label">Contenuto</label>
+            <label for="content" class="form-label">Contenuto</label>
             <textarea class="form-control" id="content" name="content" rows="6">{{ old('content', $post->text) }}</textarea>
-            @error('text')
+            @error('content')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="type_id" class="form-label">Tipo</label>
+            <select class="form-select" id="type_id" name="type_id">
+                <option value="">Seleziona un tipo</option>
+                @foreach ($types as $type)
+                    <option value="{{ $type->id }}" {{ old('type_id', $post->type_id) == $type->id ? 'selected' : '' }}>
+                        {{ $type->name }}</option>
+                @endforeach
+            </select>
+            @error('type_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>

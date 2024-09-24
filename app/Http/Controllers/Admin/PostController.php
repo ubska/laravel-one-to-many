@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Str;
+use App\Models\Type;
 
 class PostController extends Controller
 {
@@ -24,7 +25,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $types = Type::all();
+        return view('admin.posts.create', compact('types'));
     }
 
     /**
@@ -36,6 +38,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
         $post->text = $request->content;
+        $post->type_id = $request->type_id;
         $post->reading_time = $request->reading_time;
         $post->save();
 
@@ -57,7 +60,8 @@ class PostController extends Controller
     public function edit(string $id)
     {
         $post = Post::find($id);
-        return view('admin.posts.edit', compact('post'));
+        $types = Type::all();
+        return view('admin.posts.edit', compact('post', 'types'));
     }
 
     /**
@@ -69,6 +73,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
         $post->text = $request->content;
+        $post->type_id = $request->type_id;
         $post->reading_time = $request->reading_time;
         $post->save();
 

@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
             'title' => 'required|string|max:100',
             'content' => 'required|string',
             'reading_time' => 'nullable|integer|min:1|max:60',
+            'type_id' => 'nullable|exists:types,id',
         ];
     }
 
