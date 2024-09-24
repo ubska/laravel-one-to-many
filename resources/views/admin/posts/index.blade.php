@@ -8,6 +8,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Data</th>
+                <th scope="col">Type</th>
                 <th scope="col">Azioni</th>
             </tr>
         </thead>
@@ -17,6 +18,7 @@
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->created_at }}</td>
+                    <td><span class="badge text-bg-primary">{{ $post->type->name }}</span></td>
                     <td>
                         <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-info btn-sm">Show</a>
                         <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-warning btn-sm">Edit</a>

@@ -17,10 +17,12 @@ class TypeSeeder extends Seeder
         $data = ['HTML', 'CSS', 'PHP', 'C++', 'JS'];
 
         foreach ($data as $type) {
-            $new_type = new Type();
-            $new_type->name = $type;
-            $new_type->slug = Helper::generateSlug($new_type->name, Type::class);
-            $new_type->save();
+            if (!Type::where('slug', Helper::generateSlug($type, Type::class))->exists()) {
+                $new_type = new Type();
+                $new_type->name = $type;
+                $new_type->slug = Helper::generateSlug($new_type->name, Type::class);
+                $new_type->save();
+            }
         }
     }
 }

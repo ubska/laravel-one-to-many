@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Functions\Helper;
+use App\Models\Type;
 
 class PostsTableSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class PostsTableSeeder extends Seeder
     {
         for ($i = 0; $i < 100; $i++) {
             $new_post = new Post();
+            $new_post->type_id = Type::inRandomOrder()->first()->id;
             $new_post->title = $faker->sentence;
             $new_post->slug = Helper::generateSlug($new_post->title, Post::class);
             $new_post->text = $faker->paragraph;
