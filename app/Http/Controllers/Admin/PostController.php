@@ -67,6 +67,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
         $post->text = $request->content;
         $post->reading_time = $request->reading_time;
         $post->save();
