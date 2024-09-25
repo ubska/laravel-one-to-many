@@ -11,5 +11,8 @@
         <li class="nav-item">
             <a href="{{ route('admin.posts.create') }}">NUOVO POST</a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.typePosts') }}">POST PER CATEGORIA</a>
+        </li>
     </ul>
 </aside>
