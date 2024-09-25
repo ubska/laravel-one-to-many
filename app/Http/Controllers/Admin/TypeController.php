@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Type;
+use Illuminate\Support\Str;
 
 class TypeController extends Controller
 {
@@ -13,7 +14,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = Type::all();
+        // dd($type);
+        return view('admin.types.index', compact('types'));
     }
 
     /**
@@ -21,7 +24,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -29,21 +32,38 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $slug = Str::slug($request->name);
+
+        if (Type::where('slug', $slug)->exists()) {
+            return redirect()->back()->withErrors(['name' => 'Questo tipo esiste già.'])->withInput();
+        }
+
+        Type::create([
+            'name' => $request->name,
+            'slug' => $slug
+        ]);
+
+        return redirect()->route('admin.types.index')->with('success', 'Categoria aggiunta con successo!');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        return view('admin.types.edit', compact('types'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Type $type)
     {
         //
     }
@@ -59,9 +79,11 @@ class TypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $type = Type::find($id);
+        $type->delete();
+        return redirect()->route('admin.types.index')->with('success', 'Categoria eliminata con successo.');
     }
 
     public function typePosts()

@@ -22,7 +22,7 @@
         </main>
     </div>
 
-    @include('admin.partials.footer')
+    {{-- @include('admin.partials.footer') --}}
 </body>
 
 </html>
