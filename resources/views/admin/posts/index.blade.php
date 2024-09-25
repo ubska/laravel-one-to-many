@@ -18,7 +18,13 @@
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->created_at }}</td>
-                    <td><span class="badge text-bg-primary">{{ $post->type->name }}</span></td>
+                    <td>
+                        @if ($post->type)
+                            <span class="badge text-bg-primary">{{ $post->type->name }}</span>
+                        @else
+                            <span class="badge text-bg-secondary">Nessun type</span>
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-info btn-sm">Show</a>
                         <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-warning btn-sm">Edit</a>

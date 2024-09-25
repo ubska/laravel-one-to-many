@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ $post->title }}</h1>
-    <p>Categoria:{{ $post->type->name }}</p>
+    @if ($post->type)
+        <p>Categoria: {{ $post->type->name }}</p>
+    @else
+        <p><em>Nessuna categoria</em></p>
+    @endif
     <p><strong>Tempo di lettura:</strong> {{ $post->reading_time }} minuti</p>
     <p><strong>Contenuto:</strong></p>
     <div>
